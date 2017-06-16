@@ -11,8 +11,15 @@ body {
 }
 
 .dccon {
-  width: 120px;
   height: 120px;
+  max-width:100%;
+  max-height:100%;
+}
+
+.twitch_emote {
+  height: 56px;
+  max-width:100%;
+  max-height:100%;
 }
 
 .chat_container {
