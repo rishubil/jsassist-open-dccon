@@ -6,55 +6,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>JSAssist Open DCcon List</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css" media="screen,projection" </head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.2.14/spectre-exp.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.2.14/spectre-icons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.2.14/spectre.min.css" />
   <style>
-    .search-box {
-      margin-top: 4rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-
-    #search {
-      height: 2rem;
-    }
-
-    #search_wraper {
+    .width100 {
       width: 100%;
-      height: 3rem;
     }
 
-    .tag-label {
-      margin-right: 1rem;
+    #search:focus {
+      z-index: auto;
     }
 
-    ul.autocomplete-content.dropdown-content {
-      margin-top: -0.3rem;
-      z-index: 99999999 !important;
-      position: relative;
+    @media only screen and (min-width: 1280px) {
+      .container {
+        max-width: 1280px;
+      }
     }
 
-    .dccon-item {
+    body {
+      background: #454d5d;
+    }
+
+    .card {
+      border-width: 0px;
+    }
+
+    .chip {
+      margin-right: 8px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -ms-user-select: none;
+    }
+
+    .tag-selected {
+      color: #fff;
+      background: #5764c6;
+    }
+
+    .dccon {
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -ms-user-select: none;
+    }
+
+    #search_clear {
       cursor: pointer;
     }
 
-    .dccon-name {
-      font-size: 14px;
-      height: 72px;
-      padding: 8px !important;
+    .toast-container {
+      position: fixed;
+      bottom: 0px;
+      right: 0px;
+      padding: 16px;
     }
 
-    .dccon-hidden {
-      display: none;
+    .toast {
+      margin-top: 8px;
     }
 
-    @media only screen and (min-width: 993px) {
-      #toast-container {
-        top: initial;
-        right: 5%;
-        bottom: 7%;
-        max-width: 90%;
-      }
+    .menu {
+      max-height: 360px;
+      overflow-y: scroll;
+      overflow-x: hidden;
     }
   </style>
   <script>
@@ -73,30 +90,44 @@
   </script>
 </head>
 
-<body class="blue-grey darken-4">
+<body>
   <div class="container">
-    <div class="row">
-      <div class="col s12 l6 offset-l3">
-        <div class="search-box card z-depth-3 valign-wrapper hoverable">
-          <div class="input-field inline" id="search_wraper">
-            <i class="material-icons prefix">search</i>
-            <input type="text" id="search" class="autocomplete">
+    <div class="columns">
+      <div class="column hide-xs show col-md-1 col-2"></div>
+      <div class="column col-xs-12 col-md-10 col-8">
+        <div class="input-group input-inline width100">
+          <span class="input-group-addon">~</span>
+          <div class="form-autocomplete width100">
+            <div class="form-autocomplete-input form-input has-icon-right">
+              <input class="form-input" id="search" type="text" placeholder="디시콘 검색" />
+              <i class="form-icon icon icon-cross" id="search_clear"></i>
+            </div>
+            <ul class="menu hide" id="autocomplete"></ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col s12 l10 offset-l1">
-        <div class="tags">
-        </div>
+    <div class="columns">
+      <div class="column hide-xs show col-md-1 col-2"></div>
+      <div class="column col-xs-12 col-md-10 col-8">
+        <div class="tags"></div>
       </div>
     </div>
-    <div class="row dccon-list"></div>
+    <div class="columns">
+      <div class="column hide-xs show col-lg-1 col-1"></div>
+      <div class="column col-xs-12 col-lg-10 col-10 columns dccon-list"></div>
+    </div>
+    <div class="toast-container">
+      <!-- <div class="toast toast-primary">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </div> -->
+    </div>
+
   </div>
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+  <script src="https://cdn.rawgit.com/teampopong/hangul-jamo-js/eaca39e7/hangul-jamo.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
       var seletedTags = [];
@@ -119,40 +150,103 @@
           dcconSearchMap[keyword] = dccon;
           dcconKeywordList.push(keyword);
           autocompleteData[keyword] = dccon.path;
-
-          $('div.dccon-list').append('<div class="dccon col s4 m2" data-keyword="' + keyword + '" data-tags="' + dccon.tags.join(',') + '" data-clipboard-text="~' + keyword + '">' +
-            '<div class="dccon-item card z-depth-3 hoverable">' +
-            '<div class="card-image">' +
-            '    <img src="' + dccon.path + '">' +
+          $('div.dccon-list').append(
+            '<div class="dccon column col-xs-6 col-md-4 col-lg-3 col-xl-2 col-2" data-keyword="' + keyword + '" data-tags="' + dccon.tags.join(',') + '" data-clipboard-text="~' + keyword + '">' +
+            '  <div class="card">' +
+            '    <div class="card-image">' +
+            '      <img class="img-responsive width100" src="' + dccon.path + '">' +
+            '    </div>' +
+            '    <div class="card-body">' +
+            keyword +
+            '    </div>' +
             '  </div>' +
-            '  <div class="card-content dccon-name">' +
-            '    <p>' + keyword + '</p>' +
-            '  </div>' +
-            '</div>' +
             '</div>');
+          $('#autocomplete').append(
+            '<li class="menu-item">' +
+            '  <a href="#" class="autocomplete-item" data-keyword="' + keyword + '" data-clipboard-text="~' + keyword + '">' +
+            '    <div class="tile tile-centered">' +
+            '      <div class="tile-icon">' +
+            '        <img src="' + dccon.path + '" class="avatar avatar-sm"/>' +
+            '      </div>' +
+            '      <div class="tile-content">' + keyword +
+            '      </div>' +
+            '    </div>' +
+            '  </a>' +
+            '</li>'
+          );
         }
       }
 
+      $('.autocomplete-item').click(function() {
+        currentSearchText = $(this).data('keyword');
+        $('input#search').val(currentSearchText);
+        updateList();
+        $('#autocomplete').addClass('hide');
+      });
+
       tags.sort();
-      new Clipboard('.dccon').on('success', function(e) {
-        Materialize.toast('디씨콘 "' + e.text + '"을(를) 복사했습니다. 이제 채팅창에 입력하세요!', 4000);
+      new Clipboard('.dccon, .autocomplete-item').on('success', function(e) {
+        var $toast = $('<div class="toast toast-primary">' +
+          '디씨콘 "' + e.text + '"을(를) 복사했습니다. 이제 채팅창에 입력하세요!' +
+          '</div>');
+        $toast.delay(3000).fadeOut('slow', function() {
+          $toast.remove();
+        });
+        $('.toast-container').append($toast);
       });
 
       for (var i = 0; i < tags.length; i++) {
         var tag = tags[i];
-        $('div.tags').append('<input type="checkbox" class="filled-in tag-checkbox" id="tag-' + i + '" data-tag="' + tag + '"/>'
-         + '<label for="tag-' + i + '" class="tag-label">'+ tag + '</label>');
+        $('div.tags').append('<label class="chip" id="tag-' + i + '" data-tag="' + tag + '">' +
+          tag +
+          '</label>');
       }
 
-      $('input#search').autocomplete({
-        data: autocompleteData,
-        limit: 5,
-        onAutocomplete: function(val) {
-          currentSearchText = val;
-          updateList();
-        },
-        minLength: 1,
+      $('div.tags>.chip').click(function(e) {
+        var $this = $(this);
+        var tag = $this.data('tag');
+        if ($this.hasClass('tag-selected')) {
+          $this.removeClass('tag-selected');
+          var index = seletedTags.indexOf(tag);
+          if (index >= 0) {
+            seletedTags.splice(index, 1);
+          }
+        } else {
+          $this.addClass('tag-selected');
+          seletedTags.push(tag);
+        }
+        updateList();
       });
+
+      $('input#search').on("focusin", function(e) {
+        $('#autocomplete').removeClass('hide');
+      });
+
+      $('input#search').on("focusout", function(e) {
+        if (!$(e.relatedTarget).hasClass('autocomplete-item')) {
+          $('#autocomplete').addClass('hide');
+        }
+      });
+      $(document).keydown(
+        function(e) {
+          if (!$('#autocomplete').hasClass('hide')) {
+            var $focusedAutocompleteItem = $(".autocomplete-item:focus");
+            if (e.keyCode == 40) {
+              e.preventDefault();
+              if ($focusedAutocompleteItem.length > 0) {
+                $focusedAutocompleteItem.parent().next().children().focus();
+              } else {
+                $(".autocomplete-item").first().focus();
+              }
+            }
+            if (e.keyCode == 38) {
+              e.preventDefault();
+              if ($focusedAutocompleteItem.length > 0) {
+                $focusedAutocompleteItem.parent().prev().children().focus();
+              }
+            }
+          }
+        });
 
       function updateList() {
         $('.dccon').each(function() {
@@ -169,35 +263,40 @@
               }
             }
             if (!hasTag) {
-              $this.addClass('dccon-hidden');
+              $this.addClass('hide');
               return;
             }
           }
           if (currentSearchText.length > 0 && keyword.indexOf(currentSearchText) == -1) {
-            $this.addClass('dccon-hidden');
+            $this.addClass('hide');
             return;
           }
-          $this.removeClass('dccon-hidden');
+          $this.removeClass('hide');
           return;
-        })
+        });
+        $('.autocomplete-item').each(function() {
+          var $this = $(this);
+          var keyword = $this.data('keyword');
+          if (HANGUL.indexOf(keyword, currentSearchText) != -1) {
+            $this.parent().removeClass('hide');
+          } else {
+            $this.parent().addClass('hide');
+          }
+        });
+        if ($('.menu-item:not(".hide")').length == 0) {
+          $('#autocomplete').addClass('hide');
+        } else if ($('input#search').is(":focus")) {
+          $('#autocomplete').removeClass('hide');
+        }
       }
 
-      $('input#search').on('input',function(e){
+      $('input#search').on('input', function(e) {
         currentSearchText = $('input#search').val();
         updateList();
       });
-
-      $('.tag-checkbox').change(function() {
-        var $this = $(this);
-        var tag = $this.data('tag');
-        if ($this.prop("checked")) {
-          seletedTags.push(tag);
-        } else {
-          var index = seletedTags.indexOf(tag);
-          if (index >= 0) {
-            seletedTags.splice(index, 1);
-          }
-        }
+      $('#search_clear').click(function() {
+        $('input#search').val('');
+        currentSearchText = '';
         updateList();
       });
       updateList();
