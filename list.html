@@ -230,18 +230,18 @@
       $(document).keydown(
         function(e) {
           if (!$('#autocomplete').hasClass('hide')) {
-            var $focusedAutocompleteItem = $(".autocomplete-item:focus");
+            var $focusedAutocompleteItem = $('.menu-item:not(".hide")>.autocomplete-item:focus');
             if (e.keyCode == 40) { // down
               e.preventDefault();
               if ($focusedAutocompleteItem.length > 0) {
-                $focusedAutocompleteItem.parent().next().children().focus();
+                $focusedAutocompleteItem.parent().nextAll('.menu-item:not(".hide")').first().children().focus();
               } else {
-                $(".autocomplete-item").first().focus();
+                $('.menu-item:not(".hide")>.autocomplete-item').first().focus();
               }
             } else if (e.keyCode == 38) { // up
               e.preventDefault();
               if ($focusedAutocompleteItem.length > 0) {
-                $focusedAutocompleteItem.parent().prev().children().focus();
+                $focusedAutocompleteItem.parent().prevAll('.menu-item:not(".hide")').first().children().focus();
               }
             } else if (e.keyCode == 27) { // esc
               e.preventDefault();
