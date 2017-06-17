@@ -231,19 +231,21 @@
         function(e) {
           if (!$('#autocomplete').hasClass('hide')) {
             var $focusedAutocompleteItem = $(".autocomplete-item:focus");
-            if (e.keyCode == 40) {
+            if (e.keyCode == 40) { // down
               e.preventDefault();
               if ($focusedAutocompleteItem.length > 0) {
                 $focusedAutocompleteItem.parent().next().children().focus();
               } else {
                 $(".autocomplete-item").first().focus();
               }
-            }
-            if (e.keyCode == 38) {
+            } else if (e.keyCode == 38) { // up
               e.preventDefault();
               if ($focusedAutocompleteItem.length > 0) {
                 $focusedAutocompleteItem.parent().prev().children().focus();
               }
+            } else if (e.keyCode == 27) { // esc
+              e.preventDefault();
+              $('#autocomplete').addClass('hide');
             }
           }
         });
