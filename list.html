@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>JSAssist Open DCcon List</title>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/spectre.css/0.2.14/spectre-exp.min.css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/spectre.css/0.2.14/spectre-icons.min.css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/spectre.css/0.2.14/spectre.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.2.14/spectre-exp.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.2.14/spectre-icons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.2.14/spectre.min.css" />
   <style>
     .width100 {
       width: 100%;
@@ -56,7 +56,7 @@
       -ms-user-select: none;
     }
 
-    .dccon > .card > .card-body {
+    .dccon>.card>.card-body {
       height: 70px;
     }
 
@@ -94,27 +94,14 @@
       border-top-right-radius: 0px;
     }
 
-    .dccon.tooltip.tooltip-bottom:focus::after, .tooltip.tooltip-bottom:hover::after {
+    .dccon.tooltip.tooltip-bottom:focus::after,
+    .tooltip.tooltip-bottom:hover::after {
       opacity: 1;
-      -webkit-transform: translate(-50%,-81px);
-      -ms-transform: translate(-50%,-81px);
-      transform: translate(-50%,-81px);
+      -webkit-transform: translate(-50%, -81px);
+      -ms-transform: translate(-50%, -81px);
+      transform: translate(-50%, -81px);
     }
   </style>
-  <script>
-  // 여기에 dccon_list.js의 내용을 붙여넣으세요
-  var dcconList = [
-    {'keywords' : ['우리핵박수', '우리핵박수1',], 'tags': ['우리핵', '움짤', '박수'], 'path': '//puu.sh/sYGQM/1887cb7d57.gif',},
-    {'keywords' : ['우리핵박수2',], 'tags': ['우리핵', '움짤', '박수'], 'path': '//puu.sh/sYGTB/b97640a2ee.gif',},
-    {'keywords' : ['우리핵박수3',], 'tags': ['우리핵', '움짤', '박수'], 'path': '//puu.sh/sYGSK/25b3818f96.gif',},
-    {'keywords' : ['우리핵안녕',], 'tags': ['우리핵', '움짤', '인사'], 'path': '//puu.sh/sYGNQ/a17abeb117.gif',},
-    {'keywords' : ['우리핵아닌데',], 'tags': ['우리핵', '움짤',], 'path': '//puu.sh/sYGPz/bb15124f7a.gif',},
-    {'keywords' : ['우리핵투정',], 'tags': ['우리핵', '움짤',], 'path': '//puu.sh/wgfiI/86ff533345.gif',},
-    {'keywords' : ['우리핵드럼',], 'tags': ['우리핵', '움짤',], 'path': '//puu.sh/wgfg4/c7cbe33ddf.gif',},
-    {'keywords' : ['우리핵쌍안경',], 'tags': ['우리핵', '움짤',], 'path': '//puu.sh/wgfjZ/6532603509.gif',},
-    {'keywords' : ['우리핵빵야',], 'tags': ['우리핵', '움짤',], 'path': '//puu.sh/wgfi1/c5d6eb049f.gif',},
-  ];
-  </script>
 </head>
 
 <body>
@@ -148,13 +135,29 @@
 
   </div>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.5/jquery.lazy.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.5/jquery.lazy.plugins.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
-  <script src="//cdn.rawgit.com/teampopong/hangul-jamo-js/eaca39e7/hangul-jamo.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.5/jquery.lazy.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.5/jquery.lazy.plugins.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+  <script src="https://cdn.rawgit.com/teampopong/hangul-jamo-js/eaca39e7/hangul-jamo.js"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
+    var dcconList = [];
+    function getUrlParameter(sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+      }
+    };
+
+    function init() {
       var seletedTags = [];
       var currentSearchText = "";
       var dcconSearchMap = {}; // keyword로 dccon을 찾을 수 있도록 하는 맵
@@ -177,7 +180,8 @@
           dcconKeywordList.push(keyword);
           autocompleteData[keyword] = dccon.path;
           $('div.dccon-list').append(
-            '<div class="dccon column col-xs-6 col-md-4 col-lg-3 col-xl-2 col-2 tooltip tooltip-bottom" data-keyword="' + keyword + '" data-tags="' + dccon.tags.join(',') + '" data-clipboard-text="~' + keyword + '" data-tooltip="' + dccon.keywords.join(', ') + '">' +
+            '<div class="dccon column col-xs-6 col-md-4 col-lg-3 col-xl-2 col-2 tooltip tooltip-bottom" data-keyword="' + keyword + '" data-tags="' + dccon.tags.join(',') + '" data-clipboard-text="~' + keyword + '" data-tooltip="' + dccon.keywords
+            .join(', ') + '">' +
             '  <div class="card">' +
             '    <div class="card-image">' +
             '      <img class="img-responsive width100 lazy" data-src="' + dccon.path + '">' +
@@ -205,18 +209,12 @@
 
       var lazyDccon = $(".dccon > .card > .card-image > img.lazy").Lazy({
         chainable: false,
-        visibleOnly: true,
-        beforeLoad: function(element) {
-          console.log("start loading " + element.prop("tagName"));
-        },
+        visibleOnly: true
       });
       var lazyAutocompletedIcon = $(".autocomplete-item > .tile > .tile-icon > img.lazy").Lazy({
         chainable: false,
         visibleOnly: true,
-        appendScroll: $('#autocomplete'),
-        beforeLoad: function(element) {
-          console.log("start loading " + element.prop("tagName"));
-        },
+        appendScroll: $('#autocomplete')
       });
 
       $('.autocomplete-item').click(function() {
@@ -356,6 +354,21 @@
         updateList();
       });
       updateList();
+    }
+    $(document).ready(function() {
+      var dcconListUrl = getUrlParameter('dccon_list');
+      if (dcconListUrl == undefined) {
+        dcconListUrl = 'https://rawgit.com/rishubil/jsassist-open-dccon/master/js/dccon_list.json'
+      }
+      $.getJSON(dcconListUrl).done(function(data) {
+          dcconList = data.dccons;
+          init();
+        })
+        .fail(function(jqxhr, textStatus, error) {
+          var err = textStatus + ", " + error;
+          console.log("Request Failed: " + err);
+          init();
+        });
     });
   </script>
 </body>
