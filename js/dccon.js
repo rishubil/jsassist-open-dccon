@@ -89,7 +89,6 @@ function init() {
 
   // jQuery의 text 함수 실행후 replaceDccon을 실행할 수 있도록 hackedJqueryText 정의
   originalJqueryText = jQuery.fn.text;
-
   function hackedJqueryText() {
     var msg = originalJqueryText.apply(this, arguments);
     msg = replaceDccon(msg);
@@ -122,10 +121,6 @@ $(document).ready(function() {
       init();
     });
 });
-
-// jsassist의 updateStyle을 덮어씀
-// css/style.css 파일로 style 적용해야함
-updateStyle = function() {};
 
 // jsassist의 connect_jsassist을 덮어씀
 // json data의 message에서 줄바꿈을 \n 문자로 변경함

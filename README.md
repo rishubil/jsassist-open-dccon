@@ -9,8 +9,6 @@ JSAssist Open DCcon는 [JSAssist](http://js-almighty.com/jsassist/)와 함께 �
 
 초기 개발시 디시콘을 출력하기 위해 개발되었으나, 디시콘이 아닌 일반 이미지 역시 방송인이 직접 등록하여 사용할 수 있습니다.
 
-:warning: **JSAssist의 위젯 설정의 폰트, 배경, 플랫폼 선택은 현재 동작하지 않습니다. 관련 설정이 필요한 경우, 직접 css와 js를 수정하여 적용하야여 합니다.**
-
 ## 설치 방법
 
 - 1 .  [dccon_list.json](https://raw.githubusercontent.com/rishubil/jsassist-open-dccon/master/js/dccon_list.json)를 클릭하여 복사하거나, 링크를 오른쪽 마우스 클릭하여 저장합니다.
