@@ -17,7 +17,7 @@ body {
 }
 
 .twitch_emote {
-  height: 60px;
+  height: 40px;
   max-width:100%;
   max-height:100%;
 }
@@ -73,7 +73,7 @@ body {
 
   width: 90%;
   height: auto;
-  max-height: 240px;
+  max-height: 130px;
 
   border-radius: 1px 5px 5px 5px;
   background-color: rgba(255,255,255,0.25);
