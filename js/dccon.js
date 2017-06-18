@@ -109,7 +109,7 @@ function init() {
 $(document).ready(function() {
   var dcconListUrl = getUrlParameter('dccon_list');
   if (dcconListUrl == undefined) {
-    dcconListUrl = 'https://rawgit.com/rishubil/jsassist-open-dccon/master/js/dccon_list.json'
+    dcconListUrl = 'https://rawgit.com/rishubil/jsassist-open-dccon/b7321ad1c03f8ddfeb49c76ce078a47c95f0505d/js/dccon_list.json'
   }
   $.getJSON(dcconListUrl).done(function(data) {
       dcconList = data.dccons;
