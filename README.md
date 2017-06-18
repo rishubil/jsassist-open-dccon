@@ -15,7 +15,7 @@ JSAssist Open DCcon는 [JSAssist](http://js-almighty.com/jsassist/)와 함께 �
 - 2 . 자신이 사용하고자 하는 이모티콘을 `dccon_list.json` 파일의 형식을 참고하여 적절히 추가합니다.
 - 3 . [GisHubGist](https://gist.github.com/) 사이트에 접속합니다.
 - 4 . `Fileanem including extentions...`라고 써있는 빈칸에 `dccon_list.json`을 입력합니다.
-- 5 . 그 아래 큰 입력창에 작성해두었던 `dccon_list.json` 파일의 내용을 붙여넣고 `Create public gist 버튼을 클릭합니다.`
+- 5 . 그 아래 큰 입력창에 작성해두었던 `dccon_list.json` 파일의 내용을 붙여넣고 `Create public gist` 버튼을 클릭합니다.
 - 6 . 새 화면으로 이동하면, 우측 버튼 중 `Raw` 버튼을 클릭한 후 웹 브라우저에 표시된 주소를 복사합니다.
 - 7 . `https://rawgit.com/rishubil/jsassist-open-dccon/master/chat.html?dccon_list=`의 뒤에 6단계에서 복사한 주소를 덧붙입니다.
 
