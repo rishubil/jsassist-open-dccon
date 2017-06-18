@@ -124,11 +124,7 @@
       <div class="column hide-xs show col-lg-1 col-1"></div>
       <div class="column col-xs-12 col-lg-10 col-10 columns dccon-list"></div>
     </div>
-    <div class="toast-container">
-      <!-- <div class="toast toast-primary">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </div> -->
-    </div>
+    <div class="toast-container"></div>
 
   </div>
 
@@ -143,6 +139,7 @@
       var currentSearchText = "";
       var dcconSearchMap = {}; // keyword로 dccon을 찾을 수 있도록 하는 맵
       var dcconKeywordList = []; // 전체 keyword 리스트
+      var visibleDccon = {};
       var autocompleteData = {};
       var tags = [];
       // dcconSearchMap, dcconKeywordList 초기화
@@ -277,31 +274,38 @@
         });
 
       function updateList() {
+        visibleDccon = {};
         $('.dccon').each(function() {
           var $this = $(this);
           var keyword = $this.data('keyword');
           var tags = $this.data('tags').split(',');
-
-          if (seletedTags.length > 0) {
-            var hasTag = false;
-            for (var i = 0; i < tags.length; i++) {
-              if (seletedTags.indexOf(tags[i]) != -1) {
-                hasTag = true;
-                break;
+          var dccon = dcconSearchMap[keyword];
+          var searchResult = (function() {
+            if (seletedTags.length > 0) {
+              var hasTag = false;
+              for (var i = 0; i < tags.length; i++) {
+                if (seletedTags.indexOf(tags[i]) != -1) {
+                  hasTag = true;
+                  break;
+                }
+              }
+              if (!hasTag) {
+                return false;
               }
             }
-            if (!hasTag) {
-              $this.addClass('hide');
-              return;
+            if (currentSearchText.length > 0 && keyword.indexOf(currentSearchText) == -1) {
+              return false;
             }
-          }
-          if (currentSearchText.length > 0 && keyword.indexOf(currentSearchText) == -1) {
+            return true;
+          })();
+          if (searchResult && visibleDccon[dccon.keywords.join(",")] == undefined) {
+            visibleDccon[dccon.keywords.join(",")] = dccon;
+            $this.removeClass('hide');
+          } else {
             $this.addClass('hide');
-            return;
           }
-          $this.removeClass('hide');
-          return;
         });
+
         $('.autocomplete-item').each(function() {
           var $this = $(this);
           var keyword = $this.data('keyword');
