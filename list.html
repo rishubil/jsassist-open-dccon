@@ -25,6 +25,8 @@
     }
 
     body {
+      padding-top: 32px;
+      padding-bottom: 32px;
       background: #454d5d;
     }
 
@@ -52,6 +54,10 @@
       -moz-user-select: none;
       -khtml-user-select: none;
       -ms-user-select: none;
+    }
+
+    .dccon > .card > .card-body {
+      height: 70px;
     }
 
     #search_clear {
@@ -127,6 +133,8 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.5/jquery.lazy.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.5/jquery.lazy.plugins.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
   <script src="https://cdn.rawgit.com/teampopong/hangul-jamo-js/eaca39e7/hangul-jamo.js"></script>
   <script type="text/javascript">
@@ -155,7 +163,7 @@
             '<div class="dccon column col-xs-6 col-md-4 col-lg-3 col-xl-2 col-2" data-keyword="' + keyword + '" data-tags="' + dccon.tags.join(',') + '" data-clipboard-text="~' + keyword + '">' +
             '  <div class="card">' +
             '    <div class="card-image">' +
-            '      <img class="img-responsive width100" src="' + dccon.path + '">' +
+            '      <img class="img-responsive width100 lazy" data-src="' + dccon.path + '">' +
             '    </div>' +
             '    <div class="card-body">' +
             keyword +
@@ -167,7 +175,7 @@
             '  <a href="#" class="autocomplete-item" data-keyword="' + keyword + '" data-clipboard-text="~' + keyword + '">' +
             '    <div class="tile tile-centered">' +
             '      <div class="tile-icon">' +
-            '        <img src="' + dccon.path + '" class="avatar avatar-sm"/>' +
+            '        <img data-src="' + dccon.path + '" class="avatar avatar-sm lazy"/>' +
             '      </div>' +
             '      <div class="tile-content">' + keyword +
             '      </div>' +
@@ -177,6 +185,22 @@
           );
         }
       }
+
+      var lazyDccon = $(".dccon > .card > .card-image > img.lazy").Lazy({
+        chainable: false,
+        visibleOnly: true,
+        beforeLoad: function(element) {
+          console.log("start loading " + element.prop("tagName"));
+        },
+      });
+      var lazyAutocompletedIcon = $(".autocomplete-item > .tile > .tile-icon > img.lazy").Lazy({
+        chainable: false,
+        visibleOnly: true,
+        appendScroll: $('#autocomplete'),
+        beforeLoad: function(element) {
+          console.log("start loading " + element.prop("tagName"));
+        },
+      });
 
       $('.autocomplete-item').click(function() {
         currentSearchText = $(this).data('keyword');
@@ -220,7 +244,8 @@
       });
 
       $('input#search').on("focusin", function(e) {
-        $('#autocomplete').removeClass('hide');
+        $('#autocomplete').removeClass('hide').scrollTop(0);
+        lazyAutocompletedIcon.update();
       });
 
       $('input#search').on("focusout", function(e) {
@@ -289,8 +314,12 @@
         if ($('.menu-item:not(".hide")').length == 0) {
           $('#autocomplete').addClass('hide');
         } else if ($('input#search').is(":focus")) {
-          $('#autocomplete').removeClass('hide');
+          $('#autocomplete').removeClass('hide').scrollTop(0);;
+          lazyAutocompletedIcon.update();
         }
+
+        lazyDccon.update();
+        lazyAutocompletedIcon.update();
       }
 
       $('input#search').on('input', function(e) {
