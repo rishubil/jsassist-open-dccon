@@ -4,10 +4,10 @@ var path = require('path')
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index_path: path.resolve(__dirname, '../docs/index.html'),
-    list_path: path.resolve(__dirname, '../docs/list.html'),
-    chat_path: path.resolve(__dirname, '../docs/chat.html'),
-    assetsRoot: path.resolve(__dirname, '../docs'),
+    index_path: path.resolve(__dirname, '/docs/index.html'),
+    list_path: path.resolve(__dirname, '/docs/list.html'),
+    chat_path: path.resolve(__dirname, '/docs/chat.html'),
+    assetsRoot: path.resolve(__dirname, '/docs'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     productionSourceMap: true,
