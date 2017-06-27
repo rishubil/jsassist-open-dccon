@@ -42,9 +42,11 @@ https://rishubil.github.io/jsassist-open-dccon/list.html?dccon_list=https://raw.
 
 # Start dev server
 docker-compose up
+# or
+docker-compose run --rm --service-ports jsassist-open-dccon start
 
 # Build for production
-docker-compose exec jsassist-open-dccon yarn build
+docker-compose run --rm jsassist-open-dccon build
 ```
 
 ## License

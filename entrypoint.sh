@@ -2,5 +2,11 @@
 set -e
 
 cd /source
-yarn install
-exec yarn start
+
+if [ ! -z $1 ]
+then
+  exec yarn $@
+else
+  yarn install
+  exec yarn start
+fi
