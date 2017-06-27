@@ -1,22 +1,24 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <hello></hello>
+    <dccon></dccon>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import Dccon from './components/Dccon'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    Dccon
   }
 }
 </script>
 
 <style>
+@import "~spectre.css/dist/spectre.css";
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
