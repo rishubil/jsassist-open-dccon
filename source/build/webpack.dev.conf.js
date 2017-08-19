@@ -1,3 +1,4 @@
+/* eslint-disable */
 var utils = require('./utils')
 var webpack = require('webpack')
 var config = require('../config')
@@ -15,8 +16,8 @@ module.exports = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
   },
-  // cheap-module-eval-source-map is faster for development
-  devtool: '#cheap-module-eval-source-map',
+  // cheap-module-eval-old-source-map is faster for development
+  devtool: '#cheap-module-eval-old-source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': config.dev.env
@@ -26,24 +27,8 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      title: 'JSAssist Open Dccon',
       filename: 'index.html',
-      template: 'index-templete.html',
-      chunks: ['dcconIndex'],
-      inject: true
-    }),
-    new HtmlWebpackPlugin({
-      title: 'JSAssist Open Dccon - List',
-      filename: 'list.html',
-      template: 'index-templete.html',
-      chunks: ['dcconList'],
-      inject: true
-    }),
-    new HtmlWebpackPlugin({
-      title: 'JSAssist Open Dccon - Chat',
-      filename: 'chat.html',
-      template: 'index-templete.html',
-      chunks: ['dcconChat'],
+      template: 'index.html',
       inject: true
     }),
     new FriendlyErrorsPlugin()

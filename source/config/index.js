@@ -1,13 +1,12 @@
+/* eslint-disable */
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
 
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index_path: path.resolve(__dirname, '/docs/index.html'),
-    list_path: path.resolve(__dirname, '/docs/list.html'),
-    chat_path: path.resolve(__dirname, '/docs/chat.html'),
-    assetsRoot: path.resolve(__dirname, '/docs'),
+    index: path.resolve(__dirname, '../../docs/index.html'),
+    assetsRoot: path.resolve(__dirname, '../../docs'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     productionSourceMap: true,

@@ -1,3 +1,4 @@
+/* eslint-disable */
 var path = require('path')
 var utils = require('./utils')
 var webpack = require('webpack')
@@ -18,7 +19,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       extract: true
     })
   },
-  devtool: config.build.productionSourceMap ? '#source-map' : false,
+  devtool: config.build.productionSourceMap ? '#old-source-map' : false,
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
@@ -46,46 +47,12 @@ var webpackConfig = merge(baseWebpackConfig, {
         safe: true
       }
     }),
-    // generate docs index.html with correct asset hash for caching.
+    // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      title: 'JSAssist Open Dccon',
-      filename: config.build.index_path,
-      template: 'index-templete.html',
-      chunks: ['dcconIndex'],
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
-    new HtmlWebpackPlugin({
-      title: 'JSAssist Open Dccon - List',
-      filename: config.build.list_path,
-      template: 'index-templete.html',
-      chunks: ['dcconList'],
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
-    new HtmlWebpackPlugin({
-      title: 'JSAssist Open Dccon - Chat',
-      filename: config.build.chat_path,
-      template: 'index-templete.html',
-      chunks: ['dcconChat'],
+      filename: config.build.index,
+      template: 'index.html',
       inject: true,
       minify: {
         removeComments: true,
