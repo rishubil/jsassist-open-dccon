@@ -1,6 +1,6 @@
 <template>
   <div class="column col-xs-12 col-lg-10 col-10 columns dccon-list">
-    <dccon v-for="dccon in dcconList" :key="dccon.path" :dccon="dccon"></dccon>
+    <dccon v-for="dccon in dcconList" :key="dccon.keywords[0]" :dccon="dccon" :class="{hide: !dccon.isVisible}"></dccon>
   </div>
 </template>
 

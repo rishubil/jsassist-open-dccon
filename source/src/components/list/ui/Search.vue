@@ -14,7 +14,8 @@
         <i class="form-icon icon icon-cross" id="searchClear" @click.prevent="searchClear"></i>
       </div>
       <ul class="menu" id="autocomplete" :class="{hide: !isVisibleAutocomplete}" ref="autocomplete">
-        <li class="menu-item" v-for="(dccon, keyword) in autocompletes" :key="keyword">
+        <li class="menu-item" v-for="(dccon, keyword) in autocompletes" :key="keyword"
+            :class="{hide: !dccon.isVisible}">
           <a href="#" class="autocomplete-item" @click.prevent="autocompleteClick(keyword)">
             <div class="tile tile-centered">
               <div class="tile-icon">
@@ -58,10 +59,14 @@
     watch: {
       autocompletes(newAutocompletes) {
         const paths = _(newAutocompletes)
+          .filter(v => v.isVisible)
           .map(v => v.path)
           .uniq()
           .value();
-        this.$emit('updateFiltered', _(this.dcconList).filter(v => _.includes(paths, v.path)).value());
+        this.$emit('updateFiltered', _(this.dcconList).map(v => ({
+          ...v,
+          isVisible: _.includes(paths, v.path),
+        })).value());
       },
     },
     computed: {
@@ -77,11 +82,14 @@
           .value();
       },
       autocompletes() {
-        return _(this.keywords)
+        const filteredKeywords = _(this.keywords)
           .keys()
           .filter(k => _.intersection(this.keywords[k].tags, this.selectedTagNames).length > 0)
           .filter(k => Hangul.search(k, this.query) !== -1)
-          .map(k => [k, this.keywords[k]])
+          .value();
+        return _(this.keywords)
+          .keys()
+          .map(k => [k, {...this.keywords[k], isVisible: _.includes(filteredKeywords, k)}])
           .fromPairs()
           .value();
       },

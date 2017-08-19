@@ -1,24 +1,26 @@
 <template>
-  <div id="app" class="background">
-    <div class="container">
-      <div class="columns">
-        <div class="column hide-xs show col-md-1 col-2"></div>
-        <div class="column col-xs-12 col-md-10 col-8">
-          <search :dcconList="dcconList" :tags="filteredTags" @updateFiltered="updateFiltered"></search>
+  <div id="app">
+    <div class="background">
+      <div class="container">
+        <div class="columns">
+          <div class="column hide-xs show col-md-1 col-2"></div>
+          <div class="column col-xs-12 col-md-10 col-8">
+            <search :dcconList="dcconList" :tags="filteredTags" @updateFiltered="updateFiltered"></search>
+          </div>
         </div>
-      </div>
-      <div class="columns">
-        <div class="column hide-xs show col-md-1 col-2"></div>
-        <div class="column col-xs-12 col-md-10 col-8">
-          <tag-list :tags="tags" @updateFilteredTags="updateFilteredTags"></tag-list>
+        <div class="columns">
+          <div class="column hide-xs show col-md-1 col-2"></div>
+          <div class="column col-xs-12 col-md-10 col-8">
+            <tag-list :tags="tags" @updateFilteredTags="updateFilteredTags"></tag-list>
+          </div>
         </div>
+        <div class="columns">
+          <div class="column hide-xs show col-lg-1 col-1"></div>
+          <dccon-list :dcconList="filtered"></dccon-list>
+        </div>
+        <toast-container></toast-container>
+        <div ref="clipboard" class="clipboard" :data-clipboard-text="textForCopy"></div>
       </div>
-      <div class="columns">
-        <div class="column hide-xs show col-lg-1 col-1"></div>
-        <dccon-list :dcconList="filtered"></dccon-list>
-      </div>
-      <toast-container></toast-container>
-      <div ref="clipboard" class="clipboard" :data-clipboard-text="textForCopy"></div>
     </div>
   </div>
 </template>
@@ -68,7 +70,7 @@
         this.dcconList = response.body.dccons;
       }, (response) => {
         Bus.$emit('TOAST_MSG', '디시콘 목록을 불러올 수 없습니다.');
-      // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console
         console.log(response);
       });
       // eslint-disable-next-line no-unused-vars
@@ -110,9 +112,9 @@
 
   .background {
     width: 100%;
-    /*height: 100%;*/
+    min-height: 100%;
     padding-top: 32px;
-    padding-bottom: 32px;
+    padding-bottom: 48px;
     background: #454d5d;
   }
 
