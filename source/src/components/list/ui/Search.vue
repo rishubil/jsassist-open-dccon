@@ -98,9 +98,9 @@
       searchClear() {
         this.query = '';
       },
-      inputUpdate(e) {
+      inputUpdate: _.debounce(function f(e) {
         this.query = e.target.value;
-      },
+      }, 200),
       autocompleteClick(keyword) {
         this.query = keyword;
         this.isVisibleAutocomplete = false;
