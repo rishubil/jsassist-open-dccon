@@ -63,8 +63,7 @@
     mounted() {
       let url = this.dccon_list_url;
       if (url === '') {
-//        url = 'https://rishubil.github.io/jsassist-open-dccon/dccon_list.json';
-        url = 'https://rawgit.com/rishubil/jsassist-open-dccon/master/js/dccon_list.json';
+        url = 'https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json';
       }
       this.$http.get(url).then((response) => {
         this.dcconList = response.body.dccons;

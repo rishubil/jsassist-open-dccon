@@ -104,8 +104,7 @@
         setTimeout(() => {
           let url = t.dccon_list_url;
           if (url === '') {
-//        url = 'https://rishubil.github.io/jsassist-open-dccon/dccon_list.json';
-            url = 'https://rawgit.com/rishubil/jsassist-open-dccon/master/js/dccon_list.json';
+            url = 'https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json';
           }
           // eslint-disable-next-line
           addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러오는 중..');
@@ -246,7 +245,7 @@
           this.dcconKeywords,
           (m, index, keyword) => `${m.slice(0, index)}<img class="dccon" src="${
             this.dccons[keyword].path
-          }" />${m.slice(index + keyword.length + 1)}`,
+            }" />${m.slice(index + keyword.length + 1)}`,
         );
       },
       replaceTwitchEmotes(msg) {
@@ -255,8 +254,8 @@
           /\n(\S*?)\n/g,
           this.twitchEmotesKeywords,
           (m, index, keyword) => `${m.slice(0, index)}<img class="twitch_emote" src="${
-              TWITCH_EMOTE_URL_TEMPLATE.split('{image_id}').join(this.twitchEmotes[keyword])
-              }" />${m.slice(index + keyword.length + 1)}`,
+            TWITCH_EMOTE_URL_TEMPLATE.split('{image_id}').join(this.twitchEmotes[keyword])
+            }" />${m.slice(index + keyword.length + 1)}`,
         );
       },
     },
