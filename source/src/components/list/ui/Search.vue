@@ -41,11 +41,11 @@
     props: {
       dcconList: {
         type: Array,
-        default: [],
+        default: Array,
       },
       tags: {
         type: Array,
-        default: [],
+        default: Array,
       },
     },
     data() {

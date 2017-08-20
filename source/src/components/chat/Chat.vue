@@ -108,7 +108,7 @@
           }
           // eslint-disable-next-line
           addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러오는 중..');
-          t.$http.get(url).then((response) => {
+          t.$http.get(url, {responseType: 'json'}).then((response) => {
             t.dccons = _(response.body.dccons)
               .flatMap(v => _(v.keywords).map(o => [o, v]).value())
               .fromPairs()
@@ -135,7 +135,7 @@
         setTimeout(() => {
           // eslint-disable-next-line
           addChatMessage('system', 'SYSTEM', '트위치 공통 이모티콘 목록을 불러오는 중..');
-          t.$http.get('https://twitchemotes.com/api_cache/v3/global.json').then((response) => {
+          t.$http.get('https://twitchemotes.com/api_cache/v3/global.json', {responseType: 'json'}).then((response) => {
             t.twitchEmotes = _(response.body)
               .mapValues(v => v.id)
               .value();
@@ -143,7 +143,7 @@
             addChatMessage('system', 'SYSTEM', '트위치 공통 이모티콘 목록 불러오기 완료.');
             // eslint-disable-next-line
             addChatMessage('system', 'SYSTEM', '트위치 구독자 이모티콘 목록을 불러오는 중..');
-            t.$http.get('https://twitchemotes.com/api_cache/v3/subscriber.json').then((response2) => {
+            t.$http.get('https://twitchemotes.com/api_cache/v3/subscriber.json', {responseType: 'json'}).then((response2) => {
               t.twitchEmotes = _.merge(_(response2.body)
                   .flatMap(v => v.emotes)
                   .keyBy('code')

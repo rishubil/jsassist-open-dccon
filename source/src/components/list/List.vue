@@ -65,7 +65,7 @@
       if (url === '') {
         url = 'https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json';
       }
-      this.$http.get(url).then((response) => {
+      this.$http.get(url, {responseType: 'json'}).then((response) => {
         this.dcconList = response.body.dccons;
       }, (response) => {
         Bus.$emit('TOAST_MSG', '디시콘 목록을 불러올 수 없습니다.');
