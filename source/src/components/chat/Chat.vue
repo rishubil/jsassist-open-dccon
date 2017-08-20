@@ -267,6 +267,13 @@
 </style>
 
 <style lang="scss">
+  @import url(https://fonts.googleapis.com/earlyaccess/jejugothic.css);
+  @import url(https://fonts.googleapis.com/earlyaccess/hanna.css);
+  @import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  @import url(https://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+  @import url(https://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+  @import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
   .chat_text_message {
     max-height: 200px !important;
   }
