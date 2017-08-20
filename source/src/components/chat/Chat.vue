@@ -243,7 +243,7 @@
           msg,
           /~([^~\s]+)/g,
           this.dcconKeywords,
-          (m, index, keyword) => `${m.slice(0, index)}<img class="dccon" src="${
+          (m, index, keyword) => `${m.slice(0, index)}<img class="dccon_chat" src="${
             this.dccons[keyword].path
             }" />${m.slice(index + keyword.length + 1)}`,
         );
@@ -253,7 +253,7 @@
           msg,
           /\n(\S*?)\n/g,
           this.twitchEmotesKeywords,
-          (m, index, keyword) => `${m.slice(0, index)}<img class="twitch_emote" src="${
+          (m, index, keyword) => `${m.slice(0, index)}<img class="twitch_emote_chat" src="${
             TWITCH_EMOTE_URL_TEMPLATE.split('{image_id}').join(this.twitchEmotes[keyword])
             }" />${m.slice(index + keyword.length + 1)}`,
         );
@@ -271,13 +271,13 @@
     max-height: 200px !important;
   }
 
-  .dccon {
+  .dccon_chat {
     height: 100px;
     max-width: 100%;
     max-height: 100%;
   }
 
-  .twitch_emote {
+  .twitch_emote_chat {
     height: 47px;
     max-width: 100%;
     max-height: 100%;
