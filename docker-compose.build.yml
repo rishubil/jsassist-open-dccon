@@ -1,0 +1,12 @@
+version: '2'
+services:
+  build:
+    build: .
+    command: build
+    volumes:
+     - ./docs:/docs
+     - ./source:/source
+     - node-modules:/source/node_modules
+
+volumes:
+  node-modules:

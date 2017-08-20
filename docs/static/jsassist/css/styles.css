@@ -1,25 +1,13 @@
-@import url(https://fonts.googleapis.com/earlyaccess/jejugothic.css);
-@import url(https://fonts.googleapis.com/earlyaccess/hanna.css);
-@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-@import url(https://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
-@import url(https://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 
 body {
   background: rgba(64,80,80,0.0);
-}
-
-.dccon {
-  height: 100px;
-  max-width:100%;
-  max-height:100%;
-}
-
-.twitch_emote {
-  height: 47px;
-  max-width:100%;
-  max-height:100%;
 }
 
 .chat_container {
@@ -27,12 +15,20 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
+  /*
+    border-style:solid;
+    border-width: 2px;
+  */
   overflow: hidden;
 }
 
 .chat_wrapper {
   width: 100%;
   height: 100%;
+  /*
+    border-style:solid;
+    border-width: 2px;
+  */
   -webkit-transform: translate(-50%, -50%);
   position:fixed;
   top:50%;
@@ -73,7 +69,7 @@ body {
 
   width: 90%;
   height: auto;
-  max-height: 200px;
+  max-height: 75px;
 
   border-radius: 1px 5px 5px 5px;
   background-color: rgba(255,255,255,0.25);
