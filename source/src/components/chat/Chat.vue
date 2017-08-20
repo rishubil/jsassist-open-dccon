@@ -28,10 +28,10 @@
     },
     mounted() {
       this.addCss('https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css');
-      this.addCss('/static/jsassist/css/styles.css');
+      this.addCss('/jsassist-open-dccon/static/jsassist/css/styles.css');
       this.addJs('https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js', () => {
         this.addJs('https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js', () => {
-          this.addJs('/static/jsassist/js/jsassist.viewer_build18_pretty.js', () => {
+          this.addJs('/jsassist-open-dccon/static/jsassist/js/jsassist.viewer_build18_pretty.js', () => {
             this.init();
           });
         });
