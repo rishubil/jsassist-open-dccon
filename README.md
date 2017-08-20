@@ -1,9 +1,9 @@
 JSAssist Open DCcon
 ===
 
-[이모티콘 목록 예시](https://rishubil.github.io/jsassist-open-dccon/index.html#/list?dccon_list=https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json)
+[이모티콘 목록 예시](https://rishubil.github.io/jsassist-open-dccon/#/list?dccon_list=https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json)
 
-[방송용 채팅 소스](https://rishubil.github.io/jsassist-open-dccon/index.html#/chat?dccon_list=https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json)
+[방송용 채팅 소스](https://rishubil.github.io/jsassist-open-dccon/#/chat?dccon_list=https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json)
 
 JSAssist Open DCcon는 [JSAssist](http://js-almighty.com/jsassist/)와 함께 사용하여 방송에 표시되는 채팅창에 방송인이 추가한 이모티콘을 출력할 수 있도록 하는 플러그인입니다.
 
@@ -17,11 +17,11 @@ JSAssist Open DCcon는 [JSAssist](http://js-almighty.com/jsassist/)와 함께 �
 - 4 . `Filename including extentions...`라고 써있는 빈칸에 `dccon_list.json`을 입력합니다.
 - 5 . 그 아래 큰 입력창에 작성해두었던 `dccon_list.json` 파일의 내용을 붙여넣고 `Create public gist` 버튼을 클릭합니다.
 - 6 . 새 화면으로 이동하면, 우측 버튼 중 `Raw` 버튼을 클릭한 후 웹 브라우저에 표시된 주소를 복사합니다.
-- 7 . `https://rishubil.github.io/jsassist-open-dccon/index.html#/chat?dccon_list=`의 뒤에 6단계에서 복사한 주소를 덧붙입니다.
+- 7 . `https://rishubil.github.io/jsassist-open-dccon/#/chat?dccon_list=`의 뒤에 6단계에서 복사한 주소를 덧붙입니다.
 
 예시)
 ```
-https://rishubil.github.io/jsassist-open-dccon/index.html#/chat?dccon_list=https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json
+https://rishubil.github.io/jsassist-open-dccon/#/chat?dccon_list=https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json
 ```
 
 - 8 . JSAssist를 실행한 후 정상적인 방송을 위한 설정을 진행합니다.
@@ -29,11 +29,11 @@ https://rishubil.github.io/jsassist-open-dccon/index.html#/chat?dccon_list=https
 
 ## 이모티콘 목록
 
-위 설치 과정 6단계의 주소를 `https://rishubil.github.io/jsassist-open-dccon/index.html#/list?dccon_list=` 뒤에 덧붙인 주소로 접속하여 확인할 수 있습니다.
+위 설치 과정 6단계의 주소를 `https://rishubil.github.io/jsassist-open-dccon/#/list?dccon_list=` 뒤에 덧붙인 주소로 접속하여 확인할 수 있습니다.
 
 예시)
 ```
-https://rishubil.github.io/jsassist-open-dccon/index.html#/list?dccon_list=https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json
+https://rishubil.github.io/jsassist-open-dccon/#/list?dccon_list=https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json
 ```
 
 ## Build Setup
