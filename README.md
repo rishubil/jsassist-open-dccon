@@ -41,8 +41,6 @@ https://rishubil.github.io/jsassist-open-dccon/#/list?dccon_list=https://rishubi
 ``` bash
 
 # Start dev server
-docker-compose up
-# or
 docker-compose -f docker-compose.dev.yml up
 
 # Build for production
