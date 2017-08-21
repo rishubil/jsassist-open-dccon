@@ -109,17 +109,26 @@
           // eslint-disable-next-line
           addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러오는 중..');
           t.$http.get(url, {responseType: 'json'}).then((response) => {
-            t.dccons = _(response.body.dccons)
-              .flatMap(v => _(v.keywords).map(o => [o, v]).value())
-              .fromPairs()
-              .value();
-            t.dcconKeywords = _(t.dccons)
-              .keys()
-              .sortBy()
-              .reverse()
-              .value();
-            // eslint-disable-next-line
-            addChatMessage('system', 'SYSTEM', '디시콘 목록 불러오기 완료.');
+            try {
+              t.dccons = _(response.body.dccons)
+                .flatMap(v => _(v.keywords).map(o => [o, v]).value())
+                .fromPairs()
+                .value();
+              t.dcconKeywords = _(t.dccons)
+                .keys()
+                .sortBy()
+                .reverse()
+                .value();
+              // eslint-disable-next-line
+              addChatMessage('system', 'SYSTEM', '디시콘 목록 불러오기 완료.');
+            } catch (e) {
+              // eslint-disable-next-line
+              addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러올 수 없습니다.');
+              // eslint-disable-next-line no-console
+              console.log(e);
+              // eslint-disable-next-line no-console
+              console.log(response);
+            }
             cb();
           }, (response) => {
             // eslint-disable-next-line
