@@ -6,6 +6,7 @@
 
 <script>
   import _ from 'lodash';
+  import axios from 'axios';
 
   const TWITCH_EMOTE_URL_TEMPLATE = 'https://static-cdn.jtvnw.net/emoticons/v1/{image_id}/3.0';
 
@@ -106,37 +107,41 @@
           if (url === '') {
             url = 'https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json';
           }
+
           // eslint-disable-next-line
           addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러오는 중..');
-          t.$http.get(url, {responseType: 'json'}).then((response) => {
-            try {
-              t.dccons = _(response.body.dccons)
-                .flatMap(v => _(v.keywords).map(o => [o, v]).value())
-                .fromPairs()
-                .value();
-              t.dcconKeywords = _(t.dccons)
-                .keys()
-                .sortBy()
-                .reverse()
-                .value();
-              // eslint-disable-next-line
-              addChatMessage('system', 'SYSTEM', '디시콘 목록 불러오기 완료.');
-            } catch (e) {
+
+          axios.get(url)
+            .then((response) => {
+              try {
+                t.dccons = _(response.data.dccons)
+                  .flatMap(v => _(v.keywords).map(o => [o, v]).value())
+                  .fromPairs()
+                  .value();
+                t.dcconKeywords = _(t.dccons)
+                  .keys()
+                  .sortBy()
+                  .reverse()
+                  .value();
+                // eslint-disable-next-line
+                addChatMessage('system', 'SYSTEM', '디시콘 목록 불러오기 완료.');
+              } catch (e) {
+                // eslint-disable-next-line
+                addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러올 수 없습니다.');
+                // eslint-disable-next-line no-console
+                console.log(e);
+                // eslint-disable-next-line no-console
+                console.log(response);
+              }
+              cb();
+            })
+            .catch((error) => {
               // eslint-disable-next-line
               addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러올 수 없습니다.');
               // eslint-disable-next-line no-console
-              console.log(e);
-              // eslint-disable-next-line no-console
-              console.log(response);
-            }
-            cb();
-          }, (response) => {
-            // eslint-disable-next-line
-            addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러올 수 없습니다.');
-            // eslint-disable-next-line no-console
-            console.log(response);
-            cb();
-          });
+              console.log(error);
+              cb();
+            });
         }, 100);
       },
       loadTwitchEmotes() {

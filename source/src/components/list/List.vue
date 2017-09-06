@@ -27,6 +27,7 @@
 
 <script>
   import _ from 'lodash';
+  import axios from 'axios';
   import Clipboard from 'clipboard';
   import Bus from '@/bus';
   import Search from './ui/Search';
@@ -65,21 +66,25 @@
       if (url === '') {
         url = 'https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json';
       }
-      this.$http.get(url).then((response) => {
-        try {
-          this.dcconList = response.body.dccons;
-        } catch (e) {
+
+      axios.get(url)
+        .then((response) => {
+          try {
+            this.dcconList = response.data.dccons;
+          } catch (e) {
+            Bus.$emit('TOAST_MSG', '디시콘 목록을 불러올 수 없습니다.');
+            // eslint-disable-next-line no-console
+            console.log(e);
+            // eslint-disable-next-line no-console
+            console.log(response);
+          }
+        })
+        .catch((error) => {
           Bus.$emit('TOAST_MSG', '디시콘 목록을 불러올 수 없습니다.');
           // eslint-disable-next-line no-console
-          console.log(e);
-          // eslint-disable-next-line no-console
-          console.log(response);
-        }
-      }, (response) => {
-        Bus.$emit('TOAST_MSG', '디시콘 목록을 불러올 수 없습니다.');
-        // eslint-disable-next-line no-console
-        console.log(response);
-      });
+          console.log(error);
+        });
+
       // eslint-disable-next-line no-unused-vars
       const clipboard = new Clipboard('.clipboard');
     },
