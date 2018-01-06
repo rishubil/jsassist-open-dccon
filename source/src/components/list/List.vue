@@ -5,7 +5,7 @@
         <div class="columns">
           <div class="column hide-xs show col-md-1 col-2"></div>
           <div class="column col-xs-12 col-md-10 col-8">
-            <search :dcconList="dcconList" :tags="filteredTags" @updateFiltered="updateFiltered"></search>
+            <search :dcconList="dcconList" :tags="filteredTags" @updateFiltered="updateFiltered" :isEmptyTags="tags.length === 0"></search>
           </div>
         </div>
         <div class="columns">

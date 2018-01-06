@@ -47,6 +47,9 @@
         type: Array,
         default: Array,
       },
+      isEmptyTags: {
+        type: Boolean,
+      },
     },
     data() {
       return {
@@ -84,7 +87,10 @@
       autocompletes() {
         const filteredKeywords = _(this.keywords)
           .keys()
-          .filter(k => _.intersection(this.keywords[k].tags, this.selectedTagNames).length > 0)
+          .filter(k => this.isEmptyTags || _.intersection(
+              this.keywords[k].tags,
+              this.selectedTagNames,
+            ).length > 0)
           .filter(k => Hangul.search(k, this.query) !== -1)
           .value();
         return _(this.keywords)
