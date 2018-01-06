@@ -6,6 +6,7 @@
 
 <script>
   import _ from 'lodash';
+  import axios from 'axios';
 
   const TWITCH_EMOTE_URL_TEMPLATE = 'https://static-cdn.jtvnw.net/emoticons/v1/{image_id}/3.0';
 
@@ -106,28 +107,41 @@
           if (url === '') {
             url = 'https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json';
           }
+
           // eslint-disable-next-line
           addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러오는 중..');
-          t.$http.get(url, {responseType: 'json'}).then((response) => {
-            t.dccons = _(response.body.dccons)
-              .flatMap(v => _(v.keywords).map(o => [o, v]).value())
-              .fromPairs()
-              .value();
-            t.dcconKeywords = _(t.dccons)
-              .keys()
-              .sortBy()
-              .reverse()
-              .value();
-            // eslint-disable-next-line
-            addChatMessage('system', 'SYSTEM', '디시콘 목록 불러오기 완료.');
-            cb();
-          }, (response) => {
-            // eslint-disable-next-line
-            addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러올 수 없습니다.');
-            // eslint-disable-next-line no-console
-            console.log(response);
-            cb();
-          });
+
+          axios.get(url)
+            .then((response) => {
+              try {
+                t.dccons = _(response.data.dccons)
+                  .flatMap(v => _(v.keywords).map(o => [o, v]).value())
+                  .fromPairs()
+                  .value();
+                t.dcconKeywords = _(t.dccons)
+                  .keys()
+                  .sortBy()
+                  .reverse()
+                  .value();
+                // eslint-disable-next-line
+                addChatMessage('system', 'SYSTEM', '디시콘 목록 불러오기 완료.');
+              } catch (e) {
+                // eslint-disable-next-line
+                addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러올 수 없습니다.');
+                // eslint-disable-next-line no-console
+                console.log(e);
+                // eslint-disable-next-line no-console
+                console.log(response);
+              }
+              cb();
+            })
+            .catch((error) => {
+              // eslint-disable-next-line
+              addChatMessage('system', 'SYSTEM', '디시콘 목록을 불러올 수 없습니다.');
+              // eslint-disable-next-line no-console
+              console.log(error);
+              cb();
+            });
         }, 100);
       },
       loadTwitchEmotes() {
@@ -135,41 +149,45 @@
         setTimeout(() => {
           // eslint-disable-next-line
           addChatMessage('system', 'SYSTEM', '트위치 공통 이모티콘 목록을 불러오는 중..');
-          t.$http.get('https://twitchemotes.com/api_cache/v3/global.json', {responseType: 'json'}).then((response) => {
-            t.twitchEmotes = _(response.body)
-              .mapValues(v => v.id)
-              .value();
-            // eslint-disable-next-line
-            addChatMessage('system', 'SYSTEM', '트위치 공통 이모티콘 목록 불러오기 완료.');
-            // eslint-disable-next-line
-            addChatMessage('system', 'SYSTEM', '트위치 구독자 이모티콘 목록을 불러오는 중..');
-            t.$http.get('https://twitchemotes.com/api_cache/v3/subscriber.json', {responseType: 'json'}).then((response2) => {
-              t.twitchEmotes = _.merge(_(response2.body)
-                  .flatMap(v => v.emotes)
-                  .keyBy('code')
-                  .mapValues(v => v.id)
-                  .value(),
-                t.twitchEmotes,
-              );
-              t.twitchEmotesKeywords = _(t.twitchEmotes)
-                .keys()
-                .sortBy()
-                .reverse()
+          axios.get('https://twitchemotes.com/api_cache/v3/global.json')
+            .then((response) => {
+              t.twitchEmotes = _(response.data)
+                .mapValues(v => v.id)
                 .value();
               // eslint-disable-next-line
-              addChatMessage('system', 'SYSTEM', '트위치 구독자 이모티콘 목록 불러오기 완료.');
-            }, (response2) => {
+              addChatMessage('system', 'SYSTEM', '트위치 공통 이모티콘 목록 불러오기 완료.');
               // eslint-disable-next-line
-              addChatMessage('system', 'SYSTEM', '트위치 구독자 이모티콘 목록을 불러올 수 없습니다.');
+              addChatMessage('system', 'SYSTEM', '트위치 구독자 이모티콘 목록을 불러오는 중..');
+              axios.get('https://twitchemotes.com/api_cache/v3/subscriber.json')
+                .then((response2) => {
+                  t.twitchEmotes = _.merge(_(response2.data)
+                      .flatMap(v => v.emotes)
+                      .keyBy('code')
+                      .mapValues(v => v.id)
+                      .value(),
+                    t.twitchEmotes,
+                  );
+                  t.twitchEmotesKeywords = _(t.twitchEmotes)
+                    .keys()
+                    .sortBy()
+                    .reverse()
+                    .value();
+                  // eslint-disable-next-line
+                  addChatMessage('system', 'SYSTEM', '트위치 구독자 이모티콘 목록 불러오기 완료.');
+                })
+                .catch((error2) => {
+                  // eslint-disable-next-line
+                  addChatMessage('system', 'SYSTEM', '트위치 구독자 이모티콘 목록을 불러올 수 없습니다.');
+                  // eslint-disable-next-line no-console
+                  console.log(error2);
+                });
+            })
+            .catch((error) => {
+              // eslint-disable-next-line
+              addChatMessage('system', 'SYSTEM', '트위치 공통 이모티콘 목록을 불러올 수 없습니다.');
               // eslint-disable-next-line no-console
-              console.log(response2);
+              console.log(error);
             });
-          }, (response) => {
-            // eslint-disable-next-line
-            addChatMessage('system', 'SYSTEM', '트위치 공통 이모티콘 목록을 불러올 수 없습니다.');
-            // eslint-disable-next-line no-console
-            console.log(response);
-          });
         }, 0);
       },
       init() {

@@ -9,6 +9,10 @@ JSAssist Open DCcon는 [JSAssist](http://js-almighty.com/jsassist/)와 함께 �
 
 초기 개발시 디시콘을 출력하기 위해 개발되었으나, 디시콘이 아닌 일반 이미지 역시 방송인이 직접 등록하여 사용할 수 있습니다.
 
+## 빠른 설정 방법
+
+[![Video Label](http://img.youtube.com/vi/g8UXUX1302U/0.jpg)](https://youtu.be/g8UXUX1302U?t=0s) 
+
 ## 설치 방법
 
 - 1 . [dccon_list.json](https://rishubil.github.io/jsassist-open-dccon/static/dccon_list.json)를 클릭하여 복사하거나, 링크를 오른쪽 마우스 클릭하여 저장합니다.
@@ -41,8 +45,6 @@ https://rishubil.github.io/jsassist-open-dccon/#/list?dccon_list=https://rishubi
 ``` bash
 
 # Start dev server
-docker-compose up
-# or
 docker-compose -f docker-compose.dev.yml up
 
 # Build for production
