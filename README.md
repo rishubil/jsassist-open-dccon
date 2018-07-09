@@ -1,3 +1,9 @@
+## :warning: 더 이상 개발되지 않음 :warning:
+
+이 프로젝트는 더 이상 신규 기능 개발이 이루어지지 않으며, 정상적인 동작을 보장하지 않습니다.
+
+대신 [Bridge BBCC](https://github.com/krynen/BridgeBBCC) 또는 [ChatAssistX-Client](https://github.com/Lastorder-DC/ChatAssistX-Client)를 사용하는 것을 권장합니다.
+
 JSAssist Open DCcon
 ===
 
@@ -11,7 +17,9 @@ JSAssist Open DCcon는 [JSAssist](http://js-almighty.com/jsassist/)와 함께 �
 
 ## 빠른 설정 방법
 
-[![Video Label](http://img.youtube.com/vi/g8UXUX1302U/0.jpg)](https://youtu.be/g8UXUX1302U?t=0s) 
+아래 이미지를 클릭하시면 동영상 가이드를 보실 수 있습니다.
+
+[![동영상 가이드](http://img.youtube.com/vi/g8UXUX1302U/0.jpg)](https://youtu.be/g8UXUX1302U?t=0s) 
 
 ## 설치 방법
 
